@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registro de Usuario - RDTWARE</title>
+    <link rel="stylesheet" href="{% static 'tienda/styles.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>RDTWARE<span class="neon-text">Store</span></h1>
+                </div>
+                
+                 <div class="nav-menu" id="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link ">Inicio</a>
+                    <a href="{% url 'componentes' %}" class="nav-link">Componentes</a>
+                    <a href="{% url 'laptops' %}" class="nav-link ">Laptops</a>
+                    <a href="{% url 'grafos' %}" class="nav-link ">Sistema de Recomendaciones</a>
+                    <a href="{% url 'carrito' %}" class="nav-link action">Carrito <span id="cart-count">0</span></a>
+                    <a href="{% url 'form' %}" class="nav-link">Registrate</a> {# Este link ahora apunta a la vista 'form_registro' #}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Inicia sesión</a>
+                    {% endif %}
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content container">
+        <section class="contact-form-card">
+            <h2>Crear Cuenta</h2>
+            
+            {# --- ¡AÑADE ESTO PARA MOSTRAR MENSAJES! --- #}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {# --------------------------------------- #}
+
+            <form action="{% url 'registrar_usuario' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="username">Nombre de Usuario</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="first_name">Nombre</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Apellido</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-group">
+                    <label for="ciudad">Ciudad</label>
+                    <input type="text" id="ciudad" name="ciudad">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password1">Contraseña</label>
+                    <input type="password" id="password1" name="password1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password2">Confirmar Contraseña</label>
+                    <input type="password" id="password2" name="password2" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Registrarse</button>
+            </form>
+
+
+
+
+
+            <p style="margin-top: 1rem; text-align: center;">
+                ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="category-link">Inicia sesión</a>
+            </p>
+        </section>
+    </main>
+    
+    {# Asegúrate de que tu JavaScript para el toggle del menú esté enlazado aquí si lo tienes #}
+    {# <script src="{% static 'tienda/script.js' %}"></script> #}
+</body>
+</html>

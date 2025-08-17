@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RDTWARE - Recomendaciones Inteligentes</title>
+    <link rel="stylesheet" href="{% static 'tienda/styles.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>RDTWARE<span class="neon-text">Store</span></h1>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link">Inicio</a>
+                    <a href="{% url 'componentes' %}" class="nav-link">Componentes</a>
+                    <a href="{% url 'laptops' %}" class="nav-link">Laptops</a>
+                    <a href="{% url 'grafos' %}" class="nav-link active">Sistema de Recomendaciones</a>
+                    <a href="{% url 'carrito' %}" class="nav-link">Carrito <span id="cart-count">0</span></a>
+                    <a href="{% url 'form' %}" class="nav-link">Registrate</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Inicia sesión</a>
+                    {% endif %}
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding: 2rem; font-family: Arial, sans-serif; max-width: 800px; margin: auto;">
+        <h2 style="text-align:center; margin-bottom: 1.5rem; margin-top: 5rem;">Sistema de Recomendaciones Basado en Grafos</h2>
+
+        <div style="margin-bottom: 3rem;">
+            <label for="producto-selector" style="font-weight: bold;">Selecciona un producto:</label>
+            <select id="producto-selector" onchange="reiniciarRecomendaciones()" 
+                    style="display: block; width: 100%; max-width: 300px; padding: 0.5rem; margin-top: 0.5rem; font-size: 1rem;">
+                </select>
+            <div id="recomendacionesContainer-grid" 
+                style="
+                margin-top: 2rem;
+                border: 1px solid #cccccc00;
+                border-radius: 8px;
+                padding: 1rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                background: #fafafa00;">
+                </div>
+        </div>
+
+        <hr style="margin: 3rem 0; border: 0; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+        <h2 style="text-align:center; margin-bottom: 1.5rem;">Encuentra el Camino Más Barato</h2>
+        
+        <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; text-align: center;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1rem; width: 100%;">
+                <select id="dijkstra-start" style="padding: 0.5rem; font-size: 1rem;">
+                    </select>
+                <span style="font-size: 2rem; color: #fff;">➡️</span>
+                <select id="dijkstra-end" style="padding: 0.5rem; font-size: 1rem;">
+                    </select>
+            </div>
+            <button onclick="showDijkstraResult()" style="
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+                font-weight: bold;
+                color: #000;
+                background-color: #2a9d8f;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;">
+                Calcular Camino
+            </button>
+        </div>
+
+        <div id="path-results" style="
+            display: none;
+            margin-top: 2rem;
+            border: 1px solid #2a9d8f;
+            border-radius: 8px;
+            padding: 1rem;
+            background: rgba(42, 157, 143, 0.1);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            <h4 style="margin-top: 0;">Resultados del Camino:</h4>
+            <p style="word-wrap: break-word;"><strong>Ruta:</strong> <span id="path-display"></span></p>
+            <p><strong>Costo Total:</strong> <span id="cost-display"></span></p>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RDTWARE Store</h3>
+                    <p>Tu tienda de confianza para componentes gaming</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="{% url 'componentes' %}">Componentes</a></li>
+                        <li><a href="{% url 'laptops' %}">Laptops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RDTWARE Store. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'tienda/script.js' %}"></script>
+    <script>
+        const iconosRelacion = {
+            "alternativa": {icon: "🔄", color: "#2a9d8f"},
+            "compatibilidad_critica": {icon: "⚡️", color: "#6a0dad"},
+            "compatibilidad_rendimiento": {icon: "🚀", color: "#264653"},
+            "complementario": {icon: "➕", color: "#f4a261"},
+        };
+
+ 
+        // Función original de recomendaciones
+        function reiniciarRecomendaciones() {
+            const productoSeleccionado = document.getElementById("producto-selector").value;
+            const relaciones = productosGrafo[productoSeleccionado] || [];
+            const contenedor = document.getElementById("recomendacionesContainer-grid");
+            contenedor.innerHTML = "";
+
+            if (relaciones.length === 0) {
+                contenedor.innerHTML = "<p>No hay recomendaciones para este producto.</p>";
+                return;
+            }
+
+            relaciones.forEach(relacion => {
+                const {icon, color} = iconosRelacion[relacion.tipoRelacion] || {icon: "💡", color: "#555"};
+
+                const div = document.createElement("div");
+                div.style.display = "flex";
+                div.style.alignItems = "center";
+                div.style.backgroundColor = "rgba(0,0,0,0.5)";
+                div.style.marginBottom = "1rem";
+                div.style.padding = "0.8rem";
+                div.style.borderRadius = "6px";
+                div.style.boxShadow = "0 1px 4px rgba(0,0,0,0.1)";
+
+                div.innerHTML = `
+                    <span style="font-size: 1.8rem; margin-right: 1rem; color: ${color};">${icon}</span>
+                    <div>
+                        <h3 style="margin: 0 0 0.3rem 0;">${productos[relacion.producto].nombre}</h3>
+                        <p style="margin: 0; color: ${color}; font-weight: 600; text-transform: capitalize;">
+                            Tipo: ${relacion.tipoRelacion.replace(/_/g, ' ')}
+                        </p>
+                    </div>
+                `;
+                contenedor.appendChild(div);
+            });
+        }
+        
+        // --- NUEVAS FUNCIONES DE DIJKSTRA ---
+
+        // Función que se activa con el botón para mostrar el resultado de Dijkstra en el HTML.
+        function showDijkstraResult() {
+            const startNode = document.getElementById("dijkstra-start").value;
+            const endNode = document.getElementById("dijkstra-end").value;
+
+            const result = findCheapestPath(startNode, endNode);
+            
+            const resultsContainer = document.getElementById("path-results");
+            const pathDisplay = document.getElementById("path-display");
+            const costDisplay = document.getElementById("cost-display");
+
+            if (result.path && result.cost !== null) {
+                // Suma el precio de cada producto en el camino
+                let totalCost = 0;
+                result.path.forEach(productId => {
+                    const product = productos[productId];
+                    if (product) {
+                        totalCost += product.precio;
+                    }
+                });
+
+                // Muestra el contenedor de resultados
+                resultsContainer.style.display = "block";
+                
+                // Formatea el camino para que se vea bien
+                const pathNames = result.path.map(id => productos[id].nombre);
+                pathDisplay.textContent = pathNames.join(" -> ");
+                
+                // Muestra el costo total modificado
+                costDisplay.textContent = `$${totalCost.toFixed(2)}`;
+                
+            } else {
+                // Si no hay camino, muestra un mensaje de error
+                resultsContainer.style.display = "block";
+                pathDisplay.textContent = "No se encontró un camino entre los productos seleccionados.";
+                costDisplay.textContent = "N/A";
+            }
+        }
+        
+        // Llenar los selectores de Dijkstra al cargar la página
+        function llenarSelectoresDijkstra() {
+            const startSelector = document.getElementById("dijkstra-start");
+            const endSelector = document.getElementById("dijkstra-end");
+
+            for (const id in productos) {
+                const producto = productos[id];
+                const optionStart = document.createElement("option");
+                optionStart.value = id;
+                optionStart.textContent = `${producto.nombre} (${producto.categoria})`;
+                startSelector.appendChild(optionStart);
+
+                const optionEnd = document.createElement("option");
+                optionEnd.value = id;
+                optionEnd.textContent = `${producto.nombre} (${producto.categoria})`;
+                endSelector.appendChild(optionEnd);
+            }
+            // Selecciona un valor por defecto para el demo
+            startSelector.value = "i512600k";
+            endSelector.value = "rx7800xt";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Lógica original de recomendaciones
+            const selector = document.getElementById("producto-selector");
+            for (const producto in productosGrafo) {
+                const option = document.createElement("option");
+                option.value = producto;
+                option.textContent = productos[producto].nombre;
+                selector.appendChild(option);
+            }
+            reiniciarRecomendaciones();
+            
+            // Nueva lógica de Dijkstra
+            llenarSelectoresDijkstra();
+        });
+    </script>
+</body>
+</html>

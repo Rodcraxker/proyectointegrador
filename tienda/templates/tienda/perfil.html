@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perfil de Usuario - RDTWARE</title>
+    <link rel="stylesheet" href="{% static 'tienda/styles.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>RDTWARE<span class="neon-text">Store</span></h1>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link">Inicio</a>
+                    <a href="{% url 'componentes' %}" class="nav-link">Componentes</a>
+                    <a href="{% url 'laptops' %}" class="nav-link">Laptops</a>
+                    <a href="{% url 'grafos' %}" class="nav-link">Recomendaciones</a>
+                    <a href="{% url 'carrito' %}" class="nav-link">Carrito</a>
+                    <a href="{% url 'logout_usuario' %}" class="nav-link action">Cerrar Sesión</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content container">
+        <section class="contact-form-card">
+            <h2>Perfil de Usuario</h2>
+            
+            <div class="form-group">
+                <strong>Nombre:</strong> {{ user.first_name }} {{ user.last_name }}
+            </div>
+            <div class="form-group">
+                <strong>Usuario:</strong> {{ user.username }}
+            </div>
+            <div class="form-group">
+                <strong>Email:</strong> {{ user.email }}
+            </div>
+            <div class="form-group">
+                <strong>Teléfono:</strong> {{ user.telefono }}
+            </div>
+            <div class="form-group">
+                <strong>Ciudad:</strong> {{ user.ciudad }}
+            </div>
+
+            <hr style="margin: 2rem 0;">
+
+            <h3>Historial de Compras</h3>
+            {% if compras %}
+                <ul class="messages">
+                    {% for compra in compras %}
+                        <li class="success">
+                            <strong>Compra #{{ compra.id }}</strong> - {{ compra.fecha_compra|date:"d M Y H:i" }} - Total: ${{ compra.total }}
+                            <ul style="margin-left: 1rem;">
+                                {% for detalle in compra.detalles.all %}
+                                    <li>{{ detalle.cantidad }}x {{ detalle.nombre_producto }} @ ${{ detalle.precio_unitario }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tienes compras registradas.</p>
+            {% endif %}
+
+            <hr style="margin: 2rem 0;">
+
+            <h3>Métodos de Pago</h3>
+            <p>Aquí podrías mostrar o permitir registrar tarjetas, PayPal u otras integraciones en el futuro.</p>
+        </section>
+    </main>
+
+    <script src="{% static 'tienda/script.js' %}"></script>
+</body>
+</html>

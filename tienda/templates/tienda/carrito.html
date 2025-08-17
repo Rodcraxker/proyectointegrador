@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - RDTWARE Store</title>
+    <link rel="stylesheet" href="{% static 'tienda/styles.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>RDTWARE<span class="neon-text">Store</span></h1>
+                </div>
+                
+                 <div class="nav-menu" id="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link ">Inicio</a>
+                    <a href="{% url 'componentes' %}" class="nav-link">Componentes</a>
+                    <a href="{% url 'laptops' %}" class="nav-link ">Laptops</a>
+                    <a href="{% url 'grafos' %}" class="nav-link ">Sistema de Recomendaciones</a>
+                    <a href="{% url 'carrito' %}" class="nav-link action">Carrito <span id="cart-count">0</span></a>
+                    <a href="{% url 'form' %}" class="nav-link">Registrate</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Inicia sesión</a>
+                    {% endif %}
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title animate-on-scroll">Carrito de <span class="neon-text">Compras</span></h1>
+            <p class="page-subtitle">Revisa y confirma tus productos seleccionados</p>
+        </div>
+    </section>
+
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-container">
+                <div class="cart-items" id="cart-items">
+                    <div class="cart-empty" id="cart-empty">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>Tu carrito está vacío</h3>
+                        <p>Explora nuestros productos y agrega tus favoritos</p>
+                        <div class="empty-cart-actions">
+                            <a href="{% url 'componentes' %}" class="btn btn-primary">Ver Componentes</a>
+                            <a href="{% url 'laptops' %}" class="btn btn-secondary">Ver Laptops</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-summary" id="cart-summary" style="display: none;">
+                    <div class="summary-card">
+                        <h3>Resumen del Pedido</h3>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Envío:</span>
+                            <span id="shipping">$0.00</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Impuestos (10%):</span>
+                            <span id="taxes">$0.00</span>
+                        </div>
+                        
+                        <hr class="summary-divider">
+                        
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+
+                        <div class="shipping-options">
+                            <h4>Opciones de Envío</h4>
+                            <label class="shipping-option">
+                                <input type="radio" name="shipping" value="0" checked>
+                                <span>Envío Estándar (5-7 días) - GRATIS</span>
+                            </label>
+                            <label class="shipping-option">
+                                <input type="radio" name="shipping" value="15">
+                                <span>Envío Rápido (2-3 días) - $15.00</span>
+                            </label>
+                            <label class="shipping-option">
+                                <input type="radio" name="shipping" value="25">
+                                <span>Envío Express (1 día) - $25.00</span>
+                            </label>
+                        </div>
+
+                        <div class="promo-code">
+                            <input type="text" id="promo-input" placeholder="Código de descuento">
+                            <button class="btn btn-outline" onclick="applyPromoCode()">Aplicar</button>
+                        </div>
+
+                        <div class="checkout-actions">
+                            <button class="btn btn-primary btn-full" onclick="proceedToCheckout()">
+                                Proceder al Pago
+                            </button>
+                            <button class="btn btn-outline btn-full" onclick="continueShopping()">
+                                Continuar Comprando
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Compra</h3>
+                <span class="modal-close" onclick="closeCheckoutModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas proceder con la compra?</p>
+                <div class="modal-summary">
+                    <p><strong>Total a pagar: <span id="modal-total">$0.00</span></strong></p>
+                    <p>Productos: <span id="modal-items-count">0</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeCheckoutModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="confirmPurchase()">Confirmar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="success-modal">
+        <div class="modal-content success">
+            <div class="modal-header">
+                <h3>¡Compra Exitosa!</h3>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <p>Tu pedido ha sido procesado exitosamente.</p>
+                <p><strong>Número de orden: #<span id="order-number"></span></strong></p>
+                <p>Recibirás un email de confirmación en breve.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeSuccessModal()">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RDTWARE Store</h3>
+                    <p>Tu tienda de confianza para componentes gaming</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="{% url 'componentes' %}" >Componentes</a></li>
+                        <li><a href="{% url 'laptops' %}">Laptops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RDTWARE Store. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'tienda/script.js' %}"></script>
+</body>
+</html>

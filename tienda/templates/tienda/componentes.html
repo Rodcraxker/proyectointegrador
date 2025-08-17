@@ -1,0 +1,268 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes PC - RDTWARE Store</title>
+    <link rel="stylesheet" href="{% static 'tienda/styles.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>RDTWARE<span class="neon-text">Store</span></h1>
+                </div>
+                
+                 <div class="nav-menu" id="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link">Inicio</a>
+                    <a href="{% url 'componentes' %}" class="nav-link active">Componentes</a>
+                    <a href="{% url 'laptops' %}" class="nav-link">Laptops</a>
+                    <a href="{% url 'grafos' %}" class="nav-link">Sistema de Recomendaciones</a>
+                    <a href="{% url 'carrito' %}" class="nav-link">Carrito <span id="cart-count">0</span></a>
+                    <a href="{% url 'form' %}" class="nav-link">Registrate</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Inicia sesión</a>
+                    {% endif %}
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title animate-on-scroll">Componentes <span class="neon-text">Gaming</span></h1>
+            <p class="page-subtitle">Encuentra los mejores componentes para tu setup</p>
+        </div>
+    </section>
+
+    <section class="filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="graficas">Tarjetas Gráficas</button>
+                <button class="filter-btn" data-filter="procesadores">Procesadores</button>
+                <button class="filter-btn" data-filter="ram">Memoria RAM</button>
+                <button class="filter-btn" data-filter="almacenamiento">Almacenamiento</button>
+                <button class="filter-btn" data-filter="otros">Otros</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="container">
+            <div class="products-grid" id="components-grid">
+                <div class="product-card animate-on-scroll" data-category="graficas" data-product="rtx4090">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Graficas/4090.png' %}" alt="4090" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('rtx4090')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">NVIDIA RTX 4090</h3>
+                        <p class="product-specs">24GB GDDR6X, 10496 CUDA Cores</p>
+                        <p class="product-price">$1,599.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="graficas" data-product="rtx4070">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Graficas/4070.png' %}"  alt="RTX 4070" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('rtx4070')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">NVIDIA RTX 4070</h3>
+                        <p class="product-specs">12GB GDDR6X, 5888 CUDA Cores</p>
+                        <p class="product-price">$599.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="graficas" data-product="rtx3070">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Graficas/3070.png' %}" alt="3070" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('rtx3070')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">NVIDIA RTX 3070</h3>
+                        <p class="product-specs">8GB GDDR6, 5888 CUDA Cores</p>
+                        <p class="product-price">$450.00</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="procesadores" data-product="ryzen9700x">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Procesadores/AMD/7900x.png' %}" alt="Ryzen 9 7900X " style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('ryzen9700x')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">AMD Ryzen 9 7900X</h3>
+                        <p class="product-specs">12 Cores, 24 Threads, 4.7GHz</p>
+                        <p class="product-price">$499.00</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="procesadores" data-product="ryzen7700x">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Procesadores/AMD/7700x.png' %}" alt="Ryzen 7 7700X " style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('ryzen7700x')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">AMD Ryzen 7 7700X</h3>
+                        <p class="product-specs">8 Cores, 16 Threads, 4.5GHz</p>
+                        <p class="product-price">$399.00</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="procesadores" data-product="i712700k">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Procesadores/Intel/i7.png' %}"  alt="Intel i7-13700K" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('i712700k')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Intel Core i7-13700K</h3>
+                        <p class="product-specs">16 Cores, 24 Threads, 3.4GHz</p>
+                        <p class="product-price">$350.00</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="ram" data-product="ramDdr532gb">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Memorias ram/ddr532.png'%}" alt="RAM 32GB DDR5" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('ramDdr532gb')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Corsair Vengeance DDR5 32GB</h3>
+                        <p class="product-specs">6000MHz, RGB, Kit 2x16GB</p>
+                        <p class="product-price">$119.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="ram" data-product="ramDdr416gb">
+                    <div class="product-image">
+                        <img src= "{% static 'tienda/img/Memorias ram/ddr4.png'%}"  alt="RAM 16GB DDR4" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('ramDdr416gb')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">G.Skill Trident Z RGB 16GB</h3>
+                        <p class="product-specs">3600MHz DDR4, Kit 2x8GB</p>
+                        <p class="product-price">$129.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="almacenamiento" data-product="ssd2tb">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/ssd/2tbsa.png'%}"  alt="SSD 2TB NVMe" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('ssd2tb')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Samsung 980 PRO 2TB</h3>
+                        <p class="product-specs">NVMe M.2, 7000MB/s Read</p>
+                        <p class="product-price">$199.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="almacenamiento" data-product="ssd1tb">
+                    <div class="product-image">
+                        <img src= "{% static 'tienda/img/ssd/wd.png'%}" alt="SSD 1TB NVMe" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('ssd1tb')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">WD Black SN850X 1TB</h3>
+                        <p class="product-specs">NVMe M.2, 7300MB/s Read</p>
+                        <p class="product-price">$119.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="otros" data-product="placaB550">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Placas madre/placa B550.png'%}" alt="Placa Madre B550" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('placaB550')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">ASUS ROG Strix B550-F</h3>
+                        <p class="product-specs">WiFi 6, PCIe 4.0, RGB</p>
+                        <p class="product-price">$189.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card animate-on-scroll" data-category="otros" data-product="fuente750w">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Fuentes de poder/750w.png'%}"  alt="Fuente 750W" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('fuente750w')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Corsair RM750x</h3>
+                        <p class="product-specs">750W, 80+ Gold, Modular</p>
+                        <p class="product-price">$129.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RDTWARE Store</h3>
+                    <p>Tu tienda de confianza para componentes gaming</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="{% url 'componentes' %}" >Componentes</a></li>
+                        <li><a href="{% url 'laptops' %}">Laptops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RDTWARE Store. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'tienda/script.js' %}"></script>
+
+</body>
+</html>

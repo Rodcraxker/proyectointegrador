@@ -1,0 +1,318 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptops Gaming - RDTWARE Store</title>
+    <link rel="stylesheet" href="{% static 'tienda/styles.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>RDTWARE<span class="neon-text">Store</span></h1>
+                </div>
+                
+                 <div class="nav-menu" id="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link ">Inicio</a>
+                    <a href="{% url 'componentes' %}" class="nav-link">Componentes</a>
+                    <a href="{% url 'laptops' %}" class="nav-link active">Laptops</a>
+                    <a href="{% url 'grafos' %}" class="nav-link">Sistema de Recomendaciones</a>
+                    <a href="{% url 'carrito' %}" class="nav-link">Carrito <span id="cart-count">0</span></a>
+                    <a href="{% url 'form' %}" class="nav-link">Registrate</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Inicia sesión</a>
+                    {% endif %}
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title animate-on-scroll">Laptops <span class="neon-text">Gaming</span></h1>
+            <p class="page-subtitle">Potencia portátil para gaming en cualquier lugar</p>
+        </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="budget">Económicas</button>
+                <button class="filter-btn" data-filter="mid">Gama Media</button>
+                <button class="filter-btn" data-filter="high">Gama Alta</button>
+                <button class="filter-btn" data-filter="premium">Premium</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section class="products">
+        <div class="container">
+            <div class="products-grid" id="laptops-grid">
+                <!-- Laptops Premium -->
+                <div class="product-card laptop-card animate-on-scroll" data-category="premium" data-product="laptopASUS">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/A.png' %}"  alt="ASUS ROG Strix Scar 17" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopASUS')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">ASUS ROG Strix Scar 17</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i9-13980HX</p>
+                            <p><strong>GPU:</strong> RTX 4090 16GB</p>
+                            <p><strong>RAM:</strong> 32GB DDR5</p>
+                            <p><strong>Storage:</strong> 2TB NVMe SSD</p>
+                            <p><strong>Display:</strong> 17.3" QHD 240Hz</p>
+                        </div>
+                        <p class="product-price">$3,499.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card laptop-card animate-on-scroll" data-category="premium" data-product="laptopMSI">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/GT77.png' %}"  alt="MSI Titan GT77" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopMSI')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">MSI Titan GT77</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i9-13950HX</p>
+                            <p><strong>GPU:</strong> RTX 4080 12GB</p>
+                            <p><strong>RAM:</strong> 32GB DDR5</p>
+                            <p><strong>Storage:</strong> 1TB NVMe SSD</p>
+                            <p><strong>Display:</strong> 17.3" UHD 144Hz</p>
+                        </div>
+                        <p class="product-price">$3,199.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card laptop-card animate-on-scroll" data-category="premium" data-product="laptopAlien">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/alienware.png' %}" alt="Alienware X17 R2" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopAlien')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Alienware X17 R2</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i7-12700H</p>
+                            <p><strong>GPU:</strong> RTX 4070 8GB</p>
+                            <p><strong>RAM:</strong> 16GB DDR5</p>
+                            <p><strong>Storage:</strong> 1TB NVMe SSD</p>
+                            <p><strong>Display:</strong> 17.3" FHD 360Hz</p>
+                        </div>
+                        <p class="product-price">$2,799.99</p>
+                    </div>
+                </div>
+
+                <!-- Laptops Gama Alta -->
+                <div class="product-card laptop-card animate-on-scroll" data-category="high" data-product="laptopRazer">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/b.png' %}"  alt="Razer Blade 15" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopRazer')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Razer Blade 15</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i7-12800H</p>
+                            <p><strong>GPU:</strong> RTX 3070 Ti 8GB</p>
+                            <p><strong>RAM:</strong> 16GB DDR5</p>
+                            <p><strong>Storage:</strong> 1TB NVMe SSD</p>
+                            <p><strong>Display:</strong> 15.6" QHD 165Hz</p>
+                        </div>
+                        <p class="product-price">$2,299.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card laptop-card animate-on-scroll" data-category="high" data-product="laptopGigabyte">
+                    <div class="product-image">
+                        <img src= "{% static 'tienda/img/Laptops/c.png' %}" alt="Gigabyte AERO 16" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopGigabyte')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Gigabyte AERO 16</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i7-12700H</p>
+                            <p><strong>GPU:</strong> RTX 3060 6GB</p>
+                            <p><strong>RAM:</strong> 16GB DDR4</p>
+                            <p><strong>Storage:</strong> 512GB NVMe SSD</p>
+                            <p><strong>Display:</strong> 16" 4K OLED 60Hz</p>
+                        </div>
+                        <p class="product-price">$1,899.99</p>
+                    </div>
+                </div>
+
+                <!-- Laptops Gama Media -->
+                <div class="product-card laptop-card animate-on-scroll" data-category="mid" data-product="laptopLegion">
+                    <div class="product-image">
+                        <img src= "{% static 'tienda/img/Laptops/d.png' %}" alt="Lenovo Legion 5 Pro" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopLegion')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Lenovo Legion 5 Pro</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> AMD Ryzen 7 6800H</p>
+                            <p><strong>GPU:</strong> RTX 3060 6GB</p>
+                            <p><strong>RAM:</strong> 16GB DDR5</p>
+                            <p><strong>Storage:</strong> 512GB NVMe SSD</p>
+                            <p><strong>Display:</strong> 16" QHD 165Hz</p>
+                        </div>
+                        <p class="product-price">$1,399.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card laptop-card animate-on-scroll" data-category="mid" data-product="laptopHP">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/e.png' %}" alt="HP Omen 16" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopHP')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">HP Omen 16</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i7-12700H</p>
+                            <p><strong>GPU:</strong> RTX 3050 Ti 4GB</p>
+                            <p><strong>RAM:</strong> 16GB DDR4</p>
+                            <p><strong>Storage:</strong> 512GB NVMe SSD</p>
+                            <p><strong>Display:</strong> 16.1" FHD 144Hz</p>
+                        </div>
+                        <p class="product-price">$1,199.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card laptop-card animate-on-scroll" data-category="mid" data-product="laptopDell">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/f.png' %}" alt="Dell G15 Gaming" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopDell')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Dell G15 Gaming</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> AMD Ryzen 5 6600H</p>
+                            <p><strong>GPU:</strong> RTX 3050 4GB</p>
+                            <p><strong>RAM:</strong> 8GB DDR5</p>
+                            <p><strong>Storage:</strong> 512GB NVMe SSD</p>
+                            <p><strong>Display:</strong> 15.6" FHD 120Hz</p>
+                        </div>
+                        <p class="product-price">$999.99</p>
+                    </div>
+                </div>
+
+                <!-- Laptops Económicas -->
+                <div class="product-card laptop-card animate-on-scroll" data-category="budget" data-product="laptopAcer">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/g.png' %}" alt="Acer Nitro 5" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopAcer')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Acer Nitro 5</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> AMD Ryzen 5 5600H</p>
+                            <p><strong>GPU:</strong> GTX 1650 4GB</p>
+                            <p><strong>RAM:</strong> 8GB DDR4</p>
+                            <p><strong>Storage:</strong> 256GB NVMe SSD</p>
+                            <p><strong>Display:</strong> 15.6" FHD 144Hz</p>
+                        </div>
+                        <p class="product-price">$699.99</p>
+                    </div>
+                </div>
+
+                <div class="product-card laptop-card animate-on-scroll" data-category="budget" data-product="laptopASUSBudget">
+                    <div class="product-image">
+                        <img src="{% static 'tienda/img/Laptops/h.png' %}"  alt="ASUS TUF Gaming F15" style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary" onclick="addToCart('laptopASUSBudget')">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">ASUS TUF Gaming F15</h3>
+                        <div class="laptop-specs">
+                            <p><strong>CPU:</strong> Intel i5-11400H</p>
+                            <p><strong>GPU:</strong> GTX 1650 4GB</p>
+                            <p><strong>RAM:</strong> 8GB DDR4</p>
+                            <p><strong>Storage:</strong> 512GB NVMe SSD</p>
+                            <p><strong>Display:</strong> 15.6" FHD 144Hz</p>
+                        </div>
+                        <p class="product-price">$799.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recomendaciones Dinámicas -->
+    <section class="recommendations" id="recommendations-section" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Laptops Relacionadas</h2>
+            <div class="products-grid" id="recommendations-grid">
+                <!-- Las recomendaciones se cargarán dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RDTWARE Store</h3>
+                    <p>Tu tienda de confianza para componentes gaming</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="{% url 'componentes' %}" >Componentes</a></li>
+                        <li><a href="{% url 'laptops' %}">Laptops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RDTWARE Store. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'tienda/script.js' %}"></script>
+</body>
+</html>
