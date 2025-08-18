@@ -522,6 +522,7 @@ function updateCartCount() {
     }
 }
 
+
 function updateCartDisplay() {
     const cartItemsContainer = document.getElementById("cart-items");
     const cartEmptyMessage = document.getElementById("cart-empty");
@@ -529,16 +530,25 @@ function updateCartDisplay() {
 
     if (!cartItemsContainer || !cartEmptyMessage || !cartSummaryContainer) return;
 
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '';
+    if (!cart || cart.length === 0) {
+        // Carrito vacío: mostramos el mensaje de vacío y ocultamos resumen
         cartEmptyMessage.style.display = 'flex';
         cartSummaryContainer.style.display = 'none';
+        // Limpiamos solo los productos (no el mensaje de vacío)
+        Array.from(cartItemsContainer.children).forEach(child => {
+            if (child.id !== 'cart-empty') child.remove();
+        });
         return;
     }
 
+    // Si hay productos: ocultamos el mensaje de vacío
     cartEmptyMessage.style.display = 'none';
     cartSummaryContainer.style.display = 'flex';
-    cartItemsContainer.innerHTML = '';
+
+    // Limpiamos productos antiguos
+    Array.from(cartItemsContainer.children).forEach(child => {
+        if (child.id !== 'cart-empty') child.remove();
+    });
 
     const productCounts = {};
     cart.forEach(productId => {
@@ -573,16 +583,39 @@ function updateCartDisplay() {
     updateCartSummary();
 }
 
-function updateCartItemCount(productId, newCount) {
-    const count = parseInt(newCount, 10);
-    if (isNaN(count) || count < 1) return;
 
+
+// Función para eliminar un producto del carrito
+function removeFromCart(productId) {
+    // Eliminamos todas las ocurrencias del producto en el carrito
     cart = cart.filter(id => id !== productId);
-    for (let i = 0; i < count; i++) {
+
+    // Guardamos el carrito actualizado en localStorage
+    localStorage.setItem("userCart", JSON.stringify(cart));
+
+    // Actualizamos la visualización del carrito
+    updateCartDisplay();
+
+    // Actualizamos el contador del carrito
+    updateCartCount();
+}
+
+
+// Función para actualizar cantidad
+function updateCartItemCount(productId, newCount) {
+    newCount = parseInt(newCount);
+    if (isNaN(newCount) || newCount < 1) return;
+
+    // elimina todas las ocurrencias del producto
+    cart = cart.filter(id => id !== productId);
+
+    // agrega el producto la cantidad correcta
+    for (let i = 0; i < newCount; i++) {
         cart.push(productId);
     }
+
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-    updateCartCount();
+    updateCartDisplay(); // refresca la vista
 }
 
 function updateCartSummary() {
@@ -608,7 +641,7 @@ function updateCartSummary() {
 
     let total = subtotal + taxes + shippingCost;
 
-    const promoInput = document.getElementById("promo-input");
+     const promoInput = document.getElementById("promo-input");
     if (promoInput) {
         const promoCode = promoInput.value.trim().toUpperCase();
         if (PROMO_CODES[promoCode]) {
@@ -638,6 +671,7 @@ function updateCartSummary() {
         modalItemsCountElement.textContent = cart.length;
     }
 }
+
 function addToCart(productId) {
     const productToAdd = getProductDetails(productId);
     if (productToAdd) {
@@ -659,6 +693,7 @@ function removeFromCart(productId) {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
     updateCartCount();
 }
+
 
 function proceedToCheckout() {
     document.getElementById("checkout-modal").style.display = "flex";
@@ -703,6 +738,7 @@ function applyPromoCode() {
     updateCartSummary();
 }
 
+
 function obtenerRecomendaciones(productoId, carritoActualIds = [], cantidad = 4) {
     const recomendacionesFiltradas = [];
     const idsRecomendadosSet = new Set(carritoActualIds);
@@ -722,6 +758,7 @@ function obtenerRecomendaciones(productoId, carritoActualIds = [], cantidad = 4)
     }
     return recomendacionesFiltradas.slice(0, cantidad);
 }
+
 
 function crearTarjetaProducto(producto, esRecomendacion = false) {
     const card = document.createElement('div');
@@ -765,6 +802,7 @@ function mostrarRecomendaciones(productoId, containerId, currentCartIds = []) {
  * @param {string} endProductId - El ID del producto de destino.
  * @returns {object} - Un objeto con el camino (array de IDs) y el costo total.
  */
+
 function findCheapestPath(startProductId, endProductId) {
     const distances = {};
     const previous = {};
@@ -788,6 +826,7 @@ function findCheapestPath(startProductId, endProductId) {
         if (currentNode === endProductId) {
             break;
         }
+
 
         const currentNodeRelations = productosGrafo[currentNode] || [];
         const currentCategory = productos[currentNode].categoria;
@@ -819,7 +858,7 @@ function findCheapestPath(startProductId, endProductId) {
         }
     }
     
-    // Reconstruir el camino
+   // Reconstruir el camino
     const path = [];
     let current = endProductId;
     while (current) {
@@ -834,6 +873,7 @@ function findCheapestPath(startProductId, endProductId) {
     return { path, cost: distances[endProductId] };
 }
 
+
 // Inicialización
 window.addEventListener("DOMContentLoaded", () => {
     const savedCart = localStorage.getItem(CART_STORAGE_KEY);
@@ -845,6 +885,7 @@ window.addEventListener("DOMContentLoaded", () => {
             cart = [];
         }
     }
+
     updateCartCount();
 
     const shippingRadios = document.getElementsByName('shipping');
@@ -853,7 +894,10 @@ window.addEventListener("DOMContentLoaded", () => {
             radio.addEventListener('change', updateCartSummary);
         });
     }
+
+    updateCartDisplay();  // <-- ESTA LÍNEA ES LA QUE TE FALTABA
 });
+
 
 // MENÚ HAMBURGUESA
 const navToggle = document.getElementById("nav-toggle");
