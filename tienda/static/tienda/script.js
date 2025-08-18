@@ -573,54 +573,6 @@ function updateCartDisplay() {
     updateCartSummary();
 }
 
-
-// Añade esta función a tu archivo script.js, en la parte superior
-// para que esté disponible para otras funciones.
-
-function renderCart() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartSummaryContainer = document.getElementById('cart-summary');
-    const cartEmptyMessage = document.getElementById('cart-empty');
-
-    // 1. Obtener el carrito del localStorage
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    const cartItems = Object.values(cart);
-
-    // 2. Limpiar el contenedor actual del carrito
-    cartItemsContainer.innerHTML = '';
-
-    // 3. Renderizar cada producto del carrito
-    if (cartItems.length > 0) {
-        cartItems.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.className = 'cart-item';
-            // Aquí puedes personalizar cómo se ve cada item
-            itemElement.innerHTML = `
-                <img src="${item.imagen}" alt="${item.nombre}" class="item-img">
-                <div class="item-details">
-                    <h4 class="item-name">${item.nombre}</h4>
-                    <p class="item-price">$${item.precio.toFixed(2)}</p>
-                    <div class="item-quantity">Cantidad: ${item.cantidad}</div>
-                </div>
-                <button class="btn-remove" onclick="removeFromCart('${item.id}')">Eliminar</button>
-            `;
-            cartItemsContainer.appendChild(itemElement);
-        });
-
-        // Mostrar el resumen del pedido y ocultar el mensaje de vacío
-        cartSummaryContainer.style.display = 'block';
-        cartEmptyMessage.style.display = 'none';
-
-    } else {
-        // Si el carrito está vacío, mostrar el mensaje de "vacío"
-        cartSummaryContainer.style.display = 'none';
-        cartEmptyMessage.style.display = 'block';
-    }
-
-    // 4. Actualizar el subtotal, impuestos, etc.
-    updateCartSummary();
-}
-
 function updateCartItemCount(productId, newCount) {
     const count = parseInt(newCount, 10);
     if (isNaN(count) || count < 1) return;
@@ -708,15 +660,6 @@ function removeFromCart(productId) {
     updateCartCount();
 }
 
-function openCheckoutModal() {
-    // Logic to show the checkout modal
-    const checkoutModal = document.getElementById('checkout-modal');
-    if (checkoutModal) {
-        checkoutModal.style.display = 'block';
-    }
-}
-
-
 function proceedToCheckout() {
     document.getElementById("checkout-modal").style.display = "flex";
     // 1. Verificar si el usuario está autenticado
@@ -748,83 +691,6 @@ function confirmPurchase() {
     cart = [];
     localStorage.removeItem(CART_STORAGE_KEY);
     updateCartCount();
-}
-
-
-async function confirmPurchase() {
-    // 1. Recopilar los datos del carrito
-    const orderData = {
-        items: cart.map(productId => {
-            const product = getProductDetails(productId);
-            return {
-                id: product.id,
-                nombre: product.nombre,
-                precio: product.precio
-            };
-        }),
-        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')),
-        shipping: parseFloat(document.getElementById('shipping').textContent.replace('$', '')),
-        taxes: parseFloat(document.getElementById('taxes').textContent.replace('$', '')),
-        total: parseFloat(document.getElementById('total').textContent.replace('$', ''))
-    };
-
-    // 2. Enviar la solicitud POST al servidor de Django
-    try {
-        const response = await fetch('/procesar-compra/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Asegúrate de que Django CSRF token sea enviado
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify(orderData)
-        });
-
-        // 3. Manejar la respuesta del servidor
-        if (response.ok) {
-            const data = await response.json();
-            // Mostrar la ventana modal de éxito con el número de orden
-            document.getElementById('order-number').textContent = data.order_number;
-            document.getElementById('success-modal').style.display = 'flex';
-            
-            // Limpiar el carrito después de una compra exitosa
-            clearCart(); 
-
-        } else {
-            console.error('Error al procesar la compra:', response.statusText);
-            alert('Hubo un error al procesar tu compra. Inténtalo de nuevo.');
-        }
-
-    } catch (error) {
-        console.error('Error de red:', error);
-        alert('Hubo un problema de conexión. Inténtalo más tarde.');
-    }
-}
-
-// Función para obtener el CSRF token de la cookie
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-function updateModalTotals() {
-    // Tu lógica para actualizar el modal
-}
-// Función para limpiar el carrito (debes crearla)
-function clearCart() {
-    localStorage.removeItem('cart');
-    updateCartCount(); // Actualiza el contador del carrito a 0
-    renderCart(); // Vuelve a renderizar la vista del carrito
 }
 
 function closeSuccessModal() {
