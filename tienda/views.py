@@ -6,6 +6,13 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.decorators import login_required
 from .models import Compra 
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import Compra, DetalleCompra
+
+
 User = get_user_model()
 
 
@@ -141,3 +148,57 @@ def login_view(request):
             messages.error(request, 'Usuario o contraseña incorrectos')
     return render(request, 'tienda/login.html', {})
 
+
+from .forms import UsuarioChangeForm # No olvides importar el formulario
+
+@login_required
+def editar_perfil(request):
+    if request.method == 'POST':
+        # Si la solicitud es POST, procesamos los datos
+        form = UsuarioChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tu perfil ha sido actualizado con éxito.')
+            return redirect('perfil')
+    else:
+        # Si la solicitud es GET, mostramos el formulario con los datos actuales
+        form = UsuarioChangeForm(instance=request.user)
+    
+    return render(request, 'tienda/perfil_editar.html', {'form': form})
+
+
+
+@csrf_exempt  # Solo para desarrollo. En producción se debe usar el token CSRF.
+def procesar_compra(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            items = data.get('items', [])
+            total = data.get('total')
+
+            compra = Compra.objects.create(
+                usuario=request.user if request.user.is_authenticated else None,
+                total=total
+            )
+
+            for item_data in items:
+                DetalleCompra.objects.create(
+                    compra=compra,
+                    producto_id=item_data['id'],
+                    nombre_producto=item_data['nombre'],
+                    cantidad=1,
+                    precio_unitario=item_data['precio'],
+                    imagen_producto=item_data.get('imagen', '')  # ← esta línea es clave
+                )
+
+            return JsonResponse({'success': True, 'order_number': compra.id})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+
+
+    

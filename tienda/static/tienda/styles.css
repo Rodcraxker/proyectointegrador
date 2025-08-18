@@ -1347,3 +1347,11 @@ body {
         transform: scale(1);
     }
 }
+
+/* Estilos para las imágenes de productos en el carrito */
+.cart-item img {
+    width: 100px; /* Define un ancho fijo para las imágenes del carrito */
+    height: auto; /* Mantiene la proporción */
+    object-fit: contain; /* Asegura que la imagen completa se vea */
+    max-height: 100px; /* Opcional: limita la altura para evitar imágenes muy alargadas */
+}

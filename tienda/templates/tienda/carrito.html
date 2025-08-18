@@ -188,6 +188,11 @@
         </div>
     </footer>
 
+    <script>
+        const userIsAuthenticated = {% if user.is_authenticated %}true{% else %}false{% endif %};
+        const loginUrl = "{% url 'login' %}"; // Define la URL aquí
+        const registerUrl = "{% url 'form' %}"; // También la URL de registro
+    </script>
     <script src="{% static 'tienda/script.js' %}"></script>
 </body>
 </html>

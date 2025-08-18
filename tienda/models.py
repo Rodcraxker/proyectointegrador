@@ -34,9 +34,29 @@ class DetalleCompra(models.Model):
     nombre_producto = models.CharField(max_length=255)
     cantidad = models.PositiveIntegerField(default=1)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    imagen_producto = models.URLField(max_length=500, blank=True, null=True)  # ← nuevo campo
 
     def __str__(self):
         return f"{self.cantidad}x {self.nombre_producto} en Compra #{self.compra.id}"
 
+
     class Meta:
         verbose_name_plural = "Detalles de Compra"
+
+
+
+# En tu archivo tienda/models.py
+
+from django.db import models
+from django.conf import settings # Paso 1: Importa la configuración
+
+class Orden(models.Model):
+    # Paso 2: Usa settings.AUTH_USER_MODEL
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    total_orden = models.DecimalField(max_digits=10, decimal_places=2)
+
+class ItemOrden(models.Model):
+    orden = models.ForeignKey(Orden, on_delete=models.CASCADE)
+    nombre_producto = models.CharField(max_length=200)
+    precio_producto = models.DecimalField(max_digits=10, decimal_places=2)

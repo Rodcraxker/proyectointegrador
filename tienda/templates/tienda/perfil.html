@@ -20,7 +20,10 @@
                     <a href="{% url 'laptops' %}" class="nav-link">Laptops</a>
                     <a href="{% url 'grafos' %}" class="nav-link">Recomendaciones</a>
                     <a href="{% url 'carrito' %}" class="nav-link">Carrito</a>
+                    <a href="{% url 'editar_perfil' %}" class="nav-link">Editar Perfil</a>
                     <a href="{% url 'logout_usuario' %}" class="nav-link action">Cerrar Sesión</a>
+                    
+                    
                 </div>
                 <div class="nav-toggle" id="nav-toggle">
                     <span class="bar"></span>
@@ -77,6 +80,35 @@
             <p>Aquí podrías mostrar o permitir registrar tarjetas, PayPal u otras integraciones en el futuro.</p>
         </section>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RDTWARE Store</h3>
+                    <p>Tu tienda de confianza para componentes gaming</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="{% url 'componentes' %}">Componentes</a></li>
+                        <li><a href="{% url 'laptops' %}">Laptops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RDTWARE Store. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="{% static 'tienda/script.js' %}"></script>
 </body>

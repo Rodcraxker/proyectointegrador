@@ -12,33 +12,33 @@ const costoRelacion = {
 
 const productos = {
     // Tarjetas Gráficas
-    "rtx4090": { id: 'rtx4090', nombre: 'NVIDIA GeForce RTX 4090', precio: 1599.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
+    "rtx4090": { id: 'rtx4090', nombre: 'NVIDIA GeForce RTX 4090', precio: 1599.00, categoria: 'GPU', img: '/static/tienda/img/Graficas/4090.png'  },
     "rtx4080": { id: 'rtx4080', nombre: 'NVIDIA GeForce RTX 4080', precio: 1199.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
-    "rtx4070": { id: 'rtx4070', nombre: 'NVIDIA GeForce RTX 4070', precio: 599.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
-    "rtx3070": { id: 'rtx3070', nombre: 'NVIDIA GeForce RTX 3070', precio: 450.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
+    "rtx4070": { id: 'rtx4070', nombre: 'NVIDIA RTX 4070', precio: 599.99, categoria: 'GPU', img: '/static/tienda/img/Graficas/4070.png' },
+    "rtx3070": { id: 'rtx3070', nombre: 'NVIDIA RTX 3070', precio: 450.00, categoria: 'GPU', img: '/static/tienda/img/Graficas/3070.png' },
     "rx7900xtx": { id: 'rx7900xtx', nombre: 'AMD Radeon RX 7900 XTX', precio: 999.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
     "rx7800xt": { id: 'rx7800xt', nombre: 'AMD Radeon RX 7800 XT', precio: 499.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
     "rx6800xt": { id: 'rx6800xt', nombre: 'AMD Radeon RX 6800 XT', precio: 399.00, categoria: 'GPU', img: 'https://via.placeholder.com/150' },
 
     // Procesadores Intel
     "i913900k": { id: 'i913900k', nombre: 'Intel Core i9-13900K', precio: 599.00, categoria: 'CPU', img: 'https://via.placeholder.com/150' },
-    "i712700k": { id: 'i712700k', nombre: 'Intel Core i7-12700K', precio: 350.00, categoria: 'CPU', img: 'https://via.placeholder.com/150' },
+    "i712700k": { id: 'i712700k', nombre: 'Intel Core i7-13700K', precio: 350.00, categoria: 'CPU', img: '/static/tienda/img/Procesadores/Intel/i7.png' },
     "i512600k": { id: 'i512600k', nombre: 'Intel Core i5-12600K', precio: 250.00, categoria: 'CPU', img: 'https://via.placeholder.com/150' },
 
     // Procesadores AMD
-    "ryzen9700x": { id: 'ryzen9700x', nombre: 'AMD Ryzen 9 7900X', precio: 499.00, categoria: 'CPU', img: 'https://via.placeholder.com/150' },
-    "ryzen7700x": { id: 'ryzen7700x', nombre: 'AMD Ryzen 7 7700X', precio: 399.00, categoria: 'CPU', img: 'https://via.placeholder.com/150' },
+    "ryzen9700x": { id: 'ryzen9700x', nombre: 'AMD Ryzen 9 7900X', precio: 499.00, categoria: 'CPU', img: '/static/tienda/img/Procesadores/AMD/7900x.png' },
+    "ryzen7700x": { id: 'ryzen7700x', nombre: 'AMD Ryzen 7 7700X', precio: 399.00, categoria: 'CPU', img: '/static/tienda/img/Procesadores/AMD/7700x.png' },
     "ryzen5700x": { id: 'ryzen5700x', nombre: 'AMD Ryzen 5 7600X', precio: 250.00, categoria: 'CPU', img: 'https://via.placeholder.com/150' },
 
     // Memoria RAM
-    "ramDdr532gb": { id: 'ramDdr532gb', nombre: 'RAM DDR5 32GB', precio: 120.00, categoria: 'RAM', img: 'https://via.placeholder.com/150' },
+    "ramDdr532gb": { id: 'ramDdr532gb', nombre: 'Corsair Vengeance DDR5 32GB', precio: 119.99, categoria: 'RAM', img: '/static/tienda/img/Memorias ram/ddr532.png' },
     "ramDdr516gb": { id: 'ramDdr516gb', nombre: 'RAM DDR5 16GB', precio: 80.00, categoria: 'RAM', img: 'https://via.placeholder.com/150' },
     "ramDdr432gb": { id: 'ramDdr432gb', nombre: 'RAM DDR4 32GB', precio: 90.00, categoria: 'RAM', img: 'https://via.placeholder.com/150' },
-    "ramDdr416gb": { id: 'ramDdr416gb', nombre: 'RAM DDR4 16GB', precio: 50.00, categoria: 'RAM', img: 'https://via.placeholder.com/150' },
+    "ramDdr416gb": { id: 'ramDdr416gb', nombre: 'G.Skill Trident Z RGB 16GB', precio: 129.99, categoria: 'RAM', img: '/static/tienda/img/Memorias ram/ddr4.png' },
 
     // Almacenamiento
-    "ssd2tb": { id: 'ssd2tb', nombre: 'SSD NVMe 2TB', precio: 150.00, categoria: 'Almacenamiento', img: 'https://via.placeholder.com/150' },
-    "ssd1tb": { id: 'ssd1tb', nombre: 'SSD NVMe 1TB', precio: 80.00, categoria: 'Almacenamiento', img: 'https://via.placeholder.com/150' },
+    "ssd2tb": { id: 'ssd2tb', nombre: 'Samsung 980 PRO 2TB', precio: 199.99, categoria: 'Almacenamiento', img: '/static/tienda/img/ssd/2tbsa.png' },
+    "ssd1tb": { id: 'ssd1tb', nombre: 'WD Black SN850X 1TB', precio: 119.99, categoria: 'Almacenamiento', img: '/static/tienda/img/ssd/wd.png' },
     "ssd500gb": { id: 'ssd500gb', nombre: 'SSD NVMe 500GB', precio: 50.00, categoria: 'Almacenamiento', img: 'https://via.placeholder.com/150' },
 
     // Placas Madre
@@ -46,13 +46,13 @@ const productos = {
     "placaZ690": { id: 'placaZ690', nombre: 'Placa Madre Z690', precio: 200.00, categoria: 'Placa Madre', img: 'https://via.placeholder.com/150' },
     "placaX670": { id: 'placaX670', nombre: 'Placa Madre X670', precio: 280.00, categoria: 'Placa Madre', img: 'https://via.placeholder.com/150' },
     "placaB650": { id: 'placaB650', nombre: 'Placa Madre B650', precio: 180.00, categoria: 'Placa Madre', img: 'https://via.placeholder.com/150' },
-    "placaB550": { id: 'placaB550', nombre: 'Placa Madre B550', precio: 120.00, categoria: 'Placa Madre', img: 'https://via.placeholder.com/150' },
+    "placaB550": { id: 'placaB550', nombre: 'ASUS ROG Strix B550-F', precio: 189.99, categoria: 'Otros', img: '/static/tienda/img/Placas madre/placa B550.png' },
     "placaB660": { id: 'placaB660', nombre: 'Placa Madre B660', precio: 150.00, categoria: 'Placa Madre', img: 'https://via.placeholder.com/150' },
 
     // Fuentes de Poder
     "fuente1000w": { id: 'fuente1000w', nombre: 'Fuente de Poder 1000W', precio: 150.00, categoria: 'Fuente de Poder', img: 'https://via.placeholder.com/150' },
     "fuente850w": { id: 'fuente850w', nombre: 'Fuente de Poder 850W', precio: 120.00, categoria: 'Fuente de Poder', img: 'https://via.placeholder.com/150' },
-    "fuente750w": { id: 'fuente750w', nombre: 'Fuente de Poder 750W', precio: 90.00, categoria: 'Fuente de Poder', img: 'https://via.placeholder.com/150' },
+    "fuente750w": { id: 'fuente750w', nombre: 'Corsair RM750x', precio: 129.99, categoria: 'Otros', img: '/static/tienda/img/Fuentes de poder/750w.png' },
     "fuente650w": { id: 'fuente650w', nombre: 'Fuente de Poder 650W', precio: 70.00, categoria: 'Fuente de Poder', img: 'https://via.placeholder.com/150' },
 
     // Refrigeración
@@ -64,16 +64,16 @@ const productos = {
     "tecladoGaming": { id: 'tecladoGaming', nombre: 'Teclado Gaming', precio: 90.00, categoria: 'Periféricos', img: 'https://via.placeholder.com/150' },
 
     // Laptops
-    "laptopASUS": { id: 'laptopASUS', nombre: 'ASUS ROG Strix Scar 17', precio: 3499.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopMSI": { id: 'laptopMSI', nombre: 'MSI Titan GT77', precio: 3199.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopAlien": { id: 'laptopAlien', nombre: 'Alienware X17 R2', precio: 2799.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopRazer": { id: 'laptopRazer', nombre: 'Razer Blade 15', precio: 2299.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopGigabyte": { id: 'laptopGigabyte', nombre: 'Gigabyte AERO 16', precio: 1899.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopLegion": { id: 'laptopLegion', nombre: 'Lenovo Legion 5 Pro', precio: 1399.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopHP": { id: 'laptopHP', nombre: 'HP Omen 16', precio: 1199.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopDell": { id: 'laptopDell', nombre: 'Dell G15 Gaming', precio: 999.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopAcer": { id: 'laptopAcer', nombre: 'Acer Nitro 5', precio: 699.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
-    "laptopASUSBudget": { id: 'laptopASUSBudget', nombre: 'ASUS TUF Gaming F15', precio: 799.99, categoria: 'Laptops', img: 'https://via.placeholder.com/150' },
+    "laptopASUS": { id: 'laptopASUS', nombre: 'ASUS ROG Strix Scar 17', precio: 3499.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/A.png'},
+    "laptopMSI": { id: 'laptopMSI', nombre: 'MSI Titan GT77', precio: 3199.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/GT77.png' },
+    "laptopAlien": { id: 'laptopAlien', nombre: 'Alienware X17 R2', precio: 2799.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/alienware.png' },
+    "laptopRazer": { id: 'laptopRazer', nombre: 'Razer Blade 15', precio: 2299.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/b.png' },
+    "laptopGigabyte": { id: 'laptopGigabyte', nombre: 'Gigabyte AERO 16', precio: 1899.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/c.png' },
+    "laptopLegion": { id: 'laptopLegion', nombre: 'Lenovo Legion 5 Pro', precio: 1399.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/d.png' },
+    "laptopHP": { id: 'laptopHP', nombre: 'HP Omen 16', precio: 1199.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/e.png'},
+    "laptopDell": { id: 'laptopDell', nombre: 'Dell G15 Gaming', precio: 999.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/f.png' },
+    "laptopAcer": { id: 'laptopAcer', nombre: 'Acer Nitro 5', precio: 699.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/g.png' },
+    "laptopASUSBudget": { id: 'laptopASUSBudget', nombre: 'ASUS TUF Gaming F15', precio: 799.99, categoria: 'Laptops', img: '/static/tienda/img/Laptops/h.png' },
 
     // Componentes para Laptops
     "ramLaptop32gb": { id: 'ramLaptop32gb', nombre: 'RAM Laptop 32GB', precio: 150.00, categoria: 'RAM', img: 'https://via.placeholder.com/150' },
@@ -573,6 +573,54 @@ function updateCartDisplay() {
     updateCartSummary();
 }
 
+
+// Añade esta función a tu archivo script.js, en la parte superior
+// para que esté disponible para otras funciones.
+
+function renderCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartSummaryContainer = document.getElementById('cart-summary');
+    const cartEmptyMessage = document.getElementById('cart-empty');
+
+    // 1. Obtener el carrito del localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    const cartItems = Object.values(cart);
+
+    // 2. Limpiar el contenedor actual del carrito
+    cartItemsContainer.innerHTML = '';
+
+    // 3. Renderizar cada producto del carrito
+    if (cartItems.length > 0) {
+        cartItems.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item';
+            // Aquí puedes personalizar cómo se ve cada item
+            itemElement.innerHTML = `
+                <img src="${item.imagen}" alt="${item.nombre}" class="item-img">
+                <div class="item-details">
+                    <h4 class="item-name">${item.nombre}</h4>
+                    <p class="item-price">$${item.precio.toFixed(2)}</p>
+                    <div class="item-quantity">Cantidad: ${item.cantidad}</div>
+                </div>
+                <button class="btn-remove" onclick="removeFromCart('${item.id}')">Eliminar</button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+        });
+
+        // Mostrar el resumen del pedido y ocultar el mensaje de vacío
+        cartSummaryContainer.style.display = 'block';
+        cartEmptyMessage.style.display = 'none';
+
+    } else {
+        // Si el carrito está vacío, mostrar el mensaje de "vacío"
+        cartSummaryContainer.style.display = 'none';
+        cartEmptyMessage.style.display = 'block';
+    }
+
+    // 4. Actualizar el subtotal, impuestos, etc.
+    updateCartSummary();
+}
+
 function updateCartItemCount(productId, newCount) {
     const count = parseInt(newCount, 10);
     if (isNaN(count) || count < 1) return;
@@ -638,7 +686,6 @@ function updateCartSummary() {
         modalItemsCountElement.textContent = cart.length;
     }
 }
-
 function addToCart(productId) {
     const productToAdd = getProductDetails(productId);
     if (productToAdd) {
@@ -661,9 +708,34 @@ function removeFromCart(productId) {
     updateCartCount();
 }
 
+function openCheckoutModal() {
+    // Logic to show the checkout modal
+    const checkoutModal = document.getElementById('checkout-modal');
+    if (checkoutModal) {
+        checkoutModal.style.display = 'block';
+    }
+}
+
+
 function proceedToCheckout() {
     document.getElementById("checkout-modal").style.display = "flex";
+    // 1. Verificar si el usuario está autenticado
+    if (!userIsAuthenticated) {
+        const userChoice = confirm("Para proceder al pago, debes iniciar sesión. ¿Quieres ir al login ahora?");
+        
+        if (userChoice) {
+            window.location.href = loginUrl; // Usa la variable definida en el HTML
+        } else {
+            const registerChoice = confirm("¿Quieres registrarte para crear una cuenta?");
+            if (registerChoice) {
+                window.location.href = registerUrl; // Usa la variable definida en el HTML
+            }
+        }
+    } else {
+        openCheckoutModal();
+    }
 }
+
 function closeCheckoutModal() {
     document.getElementById("checkout-modal").style.display = "none";
 }
@@ -677,6 +749,84 @@ function confirmPurchase() {
     localStorage.removeItem(CART_STORAGE_KEY);
     updateCartCount();
 }
+
+
+async function confirmPurchase() {
+    // 1. Recopilar los datos del carrito
+    const orderData = {
+        items: cart.map(productId => {
+            const product = getProductDetails(productId);
+            return {
+                id: product.id,
+                nombre: product.nombre,
+                precio: product.precio
+            };
+        }),
+        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')),
+        shipping: parseFloat(document.getElementById('shipping').textContent.replace('$', '')),
+        taxes: parseFloat(document.getElementById('taxes').textContent.replace('$', '')),
+        total: parseFloat(document.getElementById('total').textContent.replace('$', ''))
+    };
+
+    // 2. Enviar la solicitud POST al servidor de Django
+    try {
+        const response = await fetch('/procesar-compra/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Asegúrate de que Django CSRF token sea enviado
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        // 3. Manejar la respuesta del servidor
+        if (response.ok) {
+            const data = await response.json();
+            // Mostrar la ventana modal de éxito con el número de orden
+            document.getElementById('order-number').textContent = data.order_number;
+            document.getElementById('success-modal').style.display = 'flex';
+            
+            // Limpiar el carrito después de una compra exitosa
+            clearCart(); 
+
+        } else {
+            console.error('Error al procesar la compra:', response.statusText);
+            alert('Hubo un error al procesar tu compra. Inténtalo de nuevo.');
+        }
+
+    } catch (error) {
+        console.error('Error de red:', error);
+        alert('Hubo un problema de conexión. Inténtalo más tarde.');
+    }
+}
+
+// Función para obtener el CSRF token de la cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function updateModalTotals() {
+    // Tu lógica para actualizar el modal
+}
+// Función para limpiar el carrito (debes crearla)
+function clearCart() {
+    localStorage.removeItem('cart');
+    updateCartCount(); // Actualiza el contador del carrito a 0
+    renderCart(); // Vuelve a renderizar la vista del carrito
+}
+
 function closeSuccessModal() {
     document.getElementById("success-modal").style.display = "none";
 }

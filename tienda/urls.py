@@ -12,7 +12,14 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('logout/', views.logout_usuario, name='logout_usuario'),
     path('login/', views.login_view, name='login'),
-    path('form-registro/', views.form_registro, name='form'), 
+    path('form-registro/', views.form_registro, name='form'),
+
+    #Almacenar detalles de compra
+    path('procesar-compra/', views.procesar_compra, name='procesar_compra'),
+
+    #Editar informacion
+    path('perfil/', views.perfil, name='perfil'),
+    path('perfil/editar/', views.editar_perfil, name='editar_perfil'),
                                                               
 
     # Esta URL procesa los datos POST del formulario de registro

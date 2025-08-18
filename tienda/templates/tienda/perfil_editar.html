@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - RDTWARE Store</title>
+
+    <style>
+        /* Estilos basados en tus variables CSS */
+        :root {
+            /* Colores Gaming */
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --card-bg: #1a1a1a;
+            --accent-bg: #2a2a2a;
+            
+            /* Colores Neón */
+            --neon-green: #05c425;
+            --neon-blue: #00d4ff;
+            --neon-purple: #8a2be2;
+            --neon-pink: #ff0080;
+            
+            /* Texto */
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #777777;
+            
+            /* Efectos */
+            --glow-green: 0 0 20px rgba(0, 255, 136, 0.3);
+            --glow-blue: 0 0 20px rgba(0, 212, 255, 0.3);
+            --glow-purple: 0 0 20px rgba(138, 43, 226, 0.3);
+        }
+
+        /* ===== ESTILOS GENERALES ===== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            animation: bodyFadeIn 1s ease-out 0s both;
+        }
+
+        .container {
+            max-width: 600px; /* Ancho ajustado para el formulario */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ===== ESTILOS DEL FORMULARIO ===== */
+        .auth-form {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid var(--accent-bg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        .auth-form p {
+            margin-bottom: 20px;
+        }
+
+        .auth-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .auth-form input[type="text"],
+        .auth-form input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--text-muted);
+            background-color: var(--accent-bg);
+            color: var(--text-primary);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .auth-form input[type="text"]:focus,
+        .auth-form input[type="email"]:focus {
+            border-color: var(--neon-green);
+            outline: none;
+        }
+
+        /* ===== ESTILOS DE BOTONES ===== */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .btn-primary {
+            background-color: var(--neon-green);
+            color: var(--secondary-bg);
+            border: 2px solid var(--accent-bg);
+        }
+
+        .btn-primary:hover {
+            background-color: #0a3d03;
+            border-color: #0d4c05;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            margin-left: 10px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--neon-green);
+            color: var(--primary-bg);
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Estilos de la página */
+        .page-header {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .page-title {
+            font-size: 2.5em;
+            color: var(--text-primary);
+        }
+        
+        .neon-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Editar <span class="neon-text">Perfil</span></h1>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="{% url 'perfil' %}" class="btn btn-outline">Cancelar</a>
+        </form>
+    </div>
+
+    <script src="{% static 'tienda/script.js' %}"></script>
+</body>
+</html>
