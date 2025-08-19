@@ -9,12 +9,9 @@ from .models import Compra
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from .models import Compra, DetalleCompra
 
-
 User = get_user_model()
-
 
 def index(request):
     return render(request, 'tienda/index.html')
@@ -72,7 +69,6 @@ def registrar_usuario(request):
 
     return redirect('form')
 
-
 # --- ADD THIS 'login_usuario' VIEW ---
 def login_usuario(request):
     if request.method == 'POST':
@@ -120,8 +116,6 @@ def carrito(request):
 def perfil(request):
     compras = Compra.objects.filter(usuario=request.user).prefetch_related('detalles')
     return render(request, 'tienda/perfil.html', {'compras': compras})
-
-
 
 
 @login_required
@@ -199,6 +193,3 @@ def procesar_compra(request):
             return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
-
-
-    

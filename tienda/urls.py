@@ -1,6 +1,6 @@
 # tienda/urls.py
 from django.urls import path
-from . import views # Asegúrate de que todas las vistas necesarias estén definidas en views.py
+from . import views
 
 urlpatterns = [
     # Páginas principales de la tienda
@@ -21,12 +21,9 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('perfil/editar/', views.editar_perfil, name='editar_perfil'),
                                                               
-
     # Esta URL procesa los datos POST del formulario de registro
     path('registrar-usuario/', views.registrar_usuario, name='registrar_usuario'),
 
     # URLs para el inicio de sesión de usuarios
     path('login/', views.login_usuario, name='login'),
-    # (Si tienes una vista de logout, también la añadirías aquí)
-    # path('logout/', views.logout_usuario, name='logout'),
 ]
